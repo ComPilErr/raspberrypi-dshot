@@ -1,0 +1,45 @@
+import dshot
+import time
+"""
+Speed-up and slow-down motor rapidly on pin 5
+"""
+
+MAX_SPEED = 2000
+MIN_SPEED = 50
+NULL_SPEED = 48
+PIN_OUT = 5
+Dt = 10
+increment = 30
+NO_TELEM = 0
+ON_TELEM = 1
+
+t = time.time()*1000
+t1=t
+speed = NULL_SPEED
+
+
+for _ in range(10000):
+    dshot.send(NULL_SPEED, PIN_OUT, NO_TELEM)
+    time.sleep(0.00012)
+
+while(1):
+    dshot.send(speed, PIN_OUT, NO_TELEM)
+    t = time.time()*1000
+    if (abs(t-t1)>Dt):
+        t1=t
+        speed += increment
+        if(increment>0):
+            print("Increase: ", speed)
+        if(increment<0):
+            print("Decrease: ", speed)
+        if(speed>MAX_SPEED):
+            increment = (-1)*increment
+            speed += increment*2
+        if(speed<MIN_SPEED):
+            increment = (-1)*increment
+            speed += increment*2
+            dshot.send(NULL_SPEED, PIN_OUT, ON_TELEM)
+            time.sleep(0.00012)
+            for _ in range(9999):
+                dshot.send(NULL_SPEED, PIN_OUT, NO_TELEM)
+                time.sleep(0.00012)
