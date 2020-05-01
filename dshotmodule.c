@@ -95,7 +95,7 @@ dshot_send(PyObject *self, PyObject *args)
     int value;
     int pin;
 
-    if (!PyArg_ParseTuple(args, "ii", &value, &pin))
+    if (!PyArg_ParseTuple(args, "iii", &value, &pin, &telem))
         Py_RETURN_FALSE;
 
     if (first_time)
@@ -111,7 +111,7 @@ dshot_send(PyObject *self, PyObject *args)
         GPIO_CLR = 1<<pin;
     }
 
-    send_throttle(pin, value, 0);
+    send_throttle(pin, value, telem);
 
     Py_RETURN_TRUE;
 }
