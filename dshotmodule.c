@@ -94,6 +94,7 @@ dshot_send(PyObject *self, PyObject *args)
 {
     int value;
     int pin;
+	int telem;
 
     if (!PyArg_ParseTuple(args, "iii", &value, &pin, &telem))
         Py_RETURN_FALSE;
