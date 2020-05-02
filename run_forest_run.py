@@ -1,7 +1,7 @@
 import dshot
 import time
 """
-Speed-up and slow-down motor rapidly on pin 5 with telemetry request on maximum speed point
+Speed-up and slow-down motor rapidly on pin 5 with a telemetry request at the maximum speed point
 """
 
 MAX_SPEED = 2000
